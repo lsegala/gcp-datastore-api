@@ -56,4 +56,16 @@ public class CasoController {
                     return ResponseEntity.ok().body(casoRepository.save(casoExistente));
                 }).orElse(ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping(path = {"/{id}"})
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        casoRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(path = "_deleteAll")
+    public ResponseEntity<Void> deleteAll(){
+        casoRepository.deleteAll();
+        return ResponseEntity.ok().build();
+    }
 }

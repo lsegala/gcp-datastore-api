@@ -9,7 +9,7 @@ import java.util.Date;
 public class Caso {
     @Id
     public Long id;
-    public String acesso;
+    public AccessEnum acesso;
     public String clientes;
     public Date dataCriacao;
     public String descricao;
@@ -17,6 +17,7 @@ public class Caso {
     public String pasta;
     public String responsavel;
     public String titulo;
+    public String[] etiqueta;
 
     public Long getId(){
         return this.id;
