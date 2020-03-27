@@ -2,6 +2,7 @@ package br.edu.lsegala.simplecrudapi.controller;
 
 import br.edu.lsegala.simplecrudapi.model.Caso;
 import br.edu.lsegala.simplecrudapi.repository.CasoRepository;
+import br.edu.lsegala.simplecrudapi.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,8 @@ import java.util.stream.StreamSupport;
 public class CasoController {
     @Autowired
     private CasoRepository casoRepository;
+    @Autowired
+    private ValidationService validationService;
 
     @GetMapping
     public List<Caso> findAll(){
@@ -37,8 +40,14 @@ public class CasoController {
     }
 
     @PostMapping
-    public Caso save(@RequestBody Caso caso){
-        return casoRepository.save(caso);
+    public ResponseEntity<Caso> save(@RequestBody Caso caso){
+        return getCasoResponseEntity(caso);
+    }
+
+    private ResponseEntity<Caso> getCasoResponseEntity(Caso caso) {
+        return validationService.validateFolderLength(caso.pasta)?
+                ResponseEntity.ok(casoRepository.save(caso)) :
+                ResponseEntity.unprocessableEntity().build();
     }
 
     @PutMapping(path = {"/{id}"})
@@ -53,7 +62,7 @@ public class CasoController {
                     casoExistente.pasta = caso.pasta;
                     casoExistente.responsavel = caso.responsavel;
                     casoExistente.titulo = caso.titulo;
-                    return ResponseEntity.ok().body(casoRepository.save(casoExistente));
+                    return getCasoResponseEntity(casoExistente);
                 }).orElse(ResponseEntity.notFound().build());
     }
 
