@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.edu.lsegala</groupId>
-	<artifactId>simple-crud-api</artifactId>
+	<artifactId>gcp-datastore-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>simple-crud-api</name>
-	<description>Demo project for Spring Boot</description>
+	<name>gcp-datastore-api</name>
+	<description>Teste de integração entre spring boot e gcp datastore</description>
 
 	<properties>
 		<java.version>1.8</java.version>
