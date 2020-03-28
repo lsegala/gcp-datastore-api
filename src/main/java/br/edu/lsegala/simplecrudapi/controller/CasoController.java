@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -45,9 +44,10 @@ public class CasoController {
     }
 
     private ResponseEntity<Caso> getCasoResponseEntity(Caso caso) {
-        return validationService.validateFolderLength(caso.pasta)?
-                ResponseEntity.ok(casoRepository.save(caso)) :
-                ResponseEntity.unprocessableEntity().build();
+        return  validationService.validateFolderLength(caso.pasta) &&
+                validationService.validateRequiredFields(caso)?
+                    ResponseEntity.ok(casoRepository.save(caso)) :
+                    ResponseEntity.unprocessableEntity().build();
     }
 
     @PutMapping(path = {"/{id}"})
