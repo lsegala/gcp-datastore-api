@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
-@RolesAllowed("hasRole('ROLE_CLIENT')")
 @RequestMapping("/casos")
 public class CasoController {
     @Autowired
@@ -23,6 +21,7 @@ public class CasoController {
     @Autowired
     private ValidationService validationService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping
     public List<Caso> findAll(){
         return StreamSupport.stream(
@@ -31,6 +30,7 @@ public class CasoController {
                 .collect(Collectors.toList());
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping(path = {"/{id}"})
     public ResponseEntity<Caso> findById(@PathVariable Long id){
         return casoRepository.findById(id)
@@ -38,6 +38,7 @@ public class CasoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<Caso> save(@RequestBody Caso caso){
         return getCasoResponseEntity(caso);
@@ -50,6 +51,7 @@ public class CasoController {
                     ResponseEntity.unprocessableEntity().build();
     }
 
+    @CrossOrigin(origins = "*")
     @PutMapping(path = {"/{id}"})
     public ResponseEntity<Caso> update(@PathVariable Long id,
                                          @RequestBody Caso caso){
@@ -66,6 +68,7 @@ public class CasoController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping(path = {"/{id}"})
     public ResponseEntity<Void> delete(@PathVariable Long id){
         casoRepository.deleteById(id);
