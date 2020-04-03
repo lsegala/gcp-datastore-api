@@ -82,6 +82,7 @@
 				<artifactId>appengine-maven-plugin</artifactId>
 				<version>2.0.0</version>
 				<configuration>
+					<projectId>eloquent-figure-271801</projectId>
 					<devserver.host>0.0.0.0</devserver.host>
 					<devserver.port>8081</devserver.port>
 				</configuration>
